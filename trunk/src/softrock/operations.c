@@ -268,7 +268,7 @@ void setPTT(usb_dev_handle *handle, int value) {
 	buffer[1] = 0;
 	buffer[2] = 0;
 	
-	usb_control_msg(handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, REQUEST_SET_PTT, value, 0, (char *)buffer, sizeof(buffer), 5000);
+//	usb_control_msg(handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN, REQUEST_SET_PTT, value, 0, (char *)buffer, sizeof(buffer), 5000);
 }
 
 int calcDividers(double f, struct solution* solution)
