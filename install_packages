@@ -1,0 +1,19 @@
+#!/bin/sh
+#Install tools
+apt-get -y install make gcc g++ autoconf automake autotools-dev libtool git subversion
+#Install the prerequisite packages:
+apt-get -y install libusb-0.1-4 libusb-dev libfftw3-dev portaudio19-dev libpulse-dev libsamplerate0-dev libusb-1.0-0-dev libconfig8-dev xdg-utils libortp-dev gcc-multilib libssl-dev libevent-dev cmake
+#Install Qt5
+apt-get -y install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-plugins qtmultimedia5-dev
+#Install codec2
+svn co https://svn.code.sf.net/p/freetel/code/codec2 codec2
+cd codec2
+mkdir build_linux
+cd build_linux
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+make
+sudo make install
+sudo ldconfig
+#Build Ghpsdr3
+cd ../
+autoreconf -i && ./configure --prefix=/opt/sdr-radio && make -j4
