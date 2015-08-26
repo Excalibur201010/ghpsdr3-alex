@@ -56,8 +56,9 @@ case $build_cpu in
 
     armv7l)
       AC_MSG_NOTICE([Platform: ARM 7])
-      CFLAGS="-O3 -pipe -march=armv7 -mfpu=neon -fno-tree-vectorize -fopenmp"
-      CXXFLAGS="-O3 -pipe -march=armv7 -mfpu=neon -fno-tree-vectorize -fopenmp"
+      CFLAGS="-O3 -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math"
+      CXXFLAGS="-O3 -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math"
+      LDFLAGS="-lrt -lm"
       export CFLAGS
       export CXXFLAGS
       AC_MSG_NOTICE([${CFLAGS}])
@@ -82,11 +83,11 @@ AC_SEARCH_LIBS([rtlsdr_open], [rtlsdr],[have_rtlsdr=yes])
 
 # Checks for header files.
 AC_FUNC_ALLOCA
-AC_CHECK_HEADERS([arpa/inet.h malloc.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h])
+AC_CHECK_HEADERS([arpa/inet.h malloc.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h unistd.h], [], [])
 
 
 if test "x${have_rtlsdr}" = xyes; then
-    AC_CHECK_HEADERS([ rtl-sdr.h], [], [have_rtlsdr=no])
+    AC_CHECK_HEADERS([rtl-sdr.h], [], [have_rtlsdr=no])
 fi
 
 if test "x${have_rtlsdr}" = xno; then
